@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import { resolve } from 'path';
 import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 // Load environment file based on NODE_ENV
 const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
@@ -23,6 +24,7 @@ dotenv.config({ path: resolve(__dirname, `../${envFile}`) });
       synchronize: process.env.NODE_ENV !== 'production',
     }),
     UserModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
