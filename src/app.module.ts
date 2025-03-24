@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import { resolve } from 'path';
 import { AppController } from './app.controller';
+import { UserModule } from './user/user.module';
 
 // Load environment file based on NODE_ENV
 const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
@@ -21,6 +22,7 @@ dotenv.config({ path: resolve(__dirname, `../${envFile}`) });
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
+    UserModule,
   ],
 })
 export class AppModule {}
