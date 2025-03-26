@@ -5,7 +5,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
-import { AuthDto } from './auth.dto';
+import { AuthDto } from './dto/auth.dto';
+import { TokenResponseDto } from './dto/token-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(dto: AuthDto): Promise<{ access_token: string }> {
+  async register(dto: AuthDto): Promise<TokenResponseDto> {
     const existingUser = await this.userService.findByEmail(dto.email);
     if (existingUser) {
       throw new ConflictException('Email already registered');
@@ -24,7 +25,7 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  async login(dto: AuthDto): Promise<{ access_token: string }> {
+  async login(dto: AuthDto): Promise<TokenResponseDto> {
     const user = await this.userService.validateUser(dto.email, dto.password);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
@@ -32,18 +33,9 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  private generateToken(user: { email: string; id: number }): {
-    access_token: string;
-  } {
-    const payload: { email: string; sub: number } = {
-      email: user.email,
-      sub: user.id,
-    };
-
-    const token: string = this.jwtService.sign(payload);
-
+  private generateToken(user: { id: number; email: string }) {
     return {
-      access_token: token,
+      access_token: this.jwtService.sign({ sub: user.id, email: user.email }),
     };
   }
 }

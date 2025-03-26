@@ -9,14 +9,14 @@ import { JWT_CONFIG } from './constants';
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    PassportModule,
     JwtModule.register({
       secret: JWT_CONFIG.secret,
       signOptions: { expiresIn: JWT_CONFIG.expiresIn },
     }),
     UserModule,
   ],
-  providers: [AuthService, JwtStrategy], // Add JwtStrategy here
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
