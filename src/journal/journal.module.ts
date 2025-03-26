@@ -4,6 +4,6 @@ import { JournalController } from './journal.controller';
 
 @Module({
   providers: [JournalService],
-  controllers: [JournalController]
+  controllers: [JournalController],
 })
 export class JournalModule {}
