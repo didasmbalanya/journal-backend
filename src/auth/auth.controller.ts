@@ -1,5 +1,13 @@
 // src/auth/auth.controller.ts
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
@@ -11,6 +19,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
+  @UsePipes(new ValidationPipe())
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Register a new user' })
   @ApiResponse({
@@ -24,6 +33,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @UsePipes(new ValidationPipe())
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login existing user' })
   @ApiResponse({
