@@ -1,4 +1,3 @@
-// src/journal/entities/journal.entity.ts
 import { User } from '../user/user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
