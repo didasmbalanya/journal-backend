@@ -42,8 +42,7 @@
 | **Backend**        | Node.js, Express, TypeScript         |  
 | **Database**       | PostgreSQL (with TypeORM)            |  
 | **Auth**           | JWT, bcrypt                          |  
-| **Cache**          | Redis (for analytics)                |  
-| **AI**             | `natural` (sentiment analysis)       |  
+| **AI** (TODO)      | `natural` (sentiment analysis)       |  
 | **Testing**        | Jest, Supertest                      |  
 | **Docs**           | Swagger (OpenAPI 3.0)                |  
 
@@ -106,7 +105,7 @@ JWT_EXPIRES_IN=7d
 
 ## **📚 API Documentation**  
 Interactive docs via Swagger:  
-- After running the server, visit `http://localhost:3000/api-docs`.  
+- After running the server, visit `http://localhost:3000/api`.  
 
 **Key Endpoints**:  
 | **Endpoint**              | **Method** | **Description**                |  
