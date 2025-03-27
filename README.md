@@ -118,21 +118,120 @@ Interactive docs via Swagger:
 | `/journals:id`            | GET        | Get a single jpurnal.          |  
 | `/journals:id`            | DELETE     | Delete a single journal entry. |  
 
-**Example Request (Create Entry)**:  
-```bash
-curl -X POST 'http://localhost:3000/journals' \
-  -H 'Authorization: Bearer YOUR_JWT' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "title": "My Day",
-    "content": "Today I built a journal app with sentiment analysis...",
-    "categories": "personal"
-  }'
-```
+
+**Base URL:** `http://localhost:3000`
+
+### Authentication Routes
+
+- **Register a New User**
+
+  - **Method:** POST
+  - **Endpoint:** `/auth/register`
+  - **Description:** Registers a new user with the system.
+  - **Request Body:**
+    ```json
+    {
+      "email": "string",
+      "password": "string"
+    }
+    ```
+  - **Response:**
+    - **201 Created:** User successfully registered.
+    - **400 Bad Request:** Invalid input data.
+
+- **User Login**
+
+  - **Method:** POST
+  - **Endpoint:** `/auth/login`
+  - **Description:** Authenticates a user and returns a JWT token.
+  - **Request Body:**
+    ```json
+    {
+      "email": "string",
+      "password": "string"
+    }
+    ```
+  - **Response:**
+    - **200 OK:** Authentication successful.
+    - **401 Unauthorized:** Invalid credentials.
+
+### Journal Entry Routes
+
+- **Create a New Journal Entry**
+
+  - **Method:** POST
+  - **Endpoint:** `/journals`
+  - **Description:** Adds a new journal entry for the authenticated user.
+  - **Request Headers:**
+    - **Authorization:** Bearer `<JWT Token>`
+  - **Request Body:**
+    ```json
+    {
+      "title": "string",
+      "content": "string",
+      "category": "string"
+    }
+    ```
+  - **Response:**
+    - **201 Created:** Journal entry successfully created.
+    - **400 Bad Request:** Invalid input data.
+
+- **Retrieve All Journal Entries**
+
+  - **Method:** GET
+  - **Endpoint:** `/journals`
+  - **Description:** Fetches all journal entries for the authenticated user.
+  - **Request Headers:**
+    - **Authorization:** Bearer `<JWT Token>`
+  - **Response:**
+    - **200 OK:** Returns a list of journal entries.
+    - **401 Unauthorized:** Authentication required.
+
+- **Retrieve a Specific Journal Entry**
+
+  - **Method:** GET
+  - **Endpoint:** `/journals/{id}`
+  - **Description:** Fetches a specific journal entry by its ID.
+  - **Request Headers:**
+    - **Authorization:** Bearer `<JWT Token>`
+  - **Response:**
+    - **200 OK:** Returns the journal entry.
+    - **404 Not Found:** Entry not found.
+
+- **Update a Journal Entry**
+
+  - **Method:** PUT
+  - **Endpoint:** `/journals/{id}`
+  - **Description:** Updates an existing journal entry.
+  - **Request Headers:**
+    - **Authorization:** Bearer `<JWT Token>`
+  - **Request Body:**
+    ```json
+    {
+      "title": "string",
+      "content": "string",
+      "category": "string"
+    }
+    ```
+  - **Response:**
+    - **200 OK:** Journal entry successfully updated.
+    - **400 Bad Request:** Invalid input data.
+    - **404 Not Found:** Entry not found.
+
+- **Delete a Journal Entry**
+
+  - **Method:** DELETE
+  - **Endpoint:** `/journals/{id}`
+  - **Description:** Deletes a specific journal entry by its ID.
+  - **Request Headers:**
+    - **Authorization:** Bearer `<JWT Token>`
+  - **Response:**
+    - **200 OK:** Journal entry successfully deleted.
+    - **404 Not Found:** Entry not found.
 
 ---
 
-## **🧪 Testing**  
+## **Testing**  
 **Run tests**:  
 ```bash
 npm run test:e2e      # integration tests
