@@ -1,98 +1,164 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# **JournalBackend - Personal Journaling App API**  
+**A secure, scalable backend for a journaling application with analytics and AI-powered insights.**  
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## **📌 Table of Contents**  
+1. [Features](#-features)  
+2. [Tech Stack](#-tech-stack)  
+3. [Setup & Installation](#-setup--installation)  
+4. [Environment Variables](#-environment-variables)  
+5. [API Documentation](#-api-documentation)  
+6. [Testing](#-testing)  
+7. [Deployment](#-deployment)  
+8. [System Design](#-system-design)  
+9. [License](#-license)  
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## **✨ Features**  
+✅ **User Authentication**  
+- JWT-based signup/login with password hashing.  
+- Role-based access control (admin/user).  
 
-## Project setup
+✅ **Journal Entry Management**  
+- CRUD operations for entries with validation (title, content length, categories).  
+- Optimistic updates support.  
 
-```bash
-$ npm install
+✅ **Analytics & Summaries**  TODO
+- Entry frequency heatmaps.  
+- Category distribution charts.  
+- Optional AI sentiment analysis (via `natural` NLP).  
+
+✅ **Security**  
+- Rate limiting, input sanitization, and SQL injection prevention.  TODO
+
+  
+---
+
+## **🛠 Tech Stack**  
+| **Category**       | **Choices**                          |  
+|--------------------|--------------------------------------|  
+| **Backend**        | Node.js, Express, TypeScript         |  
+| **Database**       | PostgreSQL (with TypeORM)            |  
+| **Auth**           | JWT, bcrypt                          |  
+| **Cache**          | Redis (for analytics)                |  
+| **AI**             | `natural` (sentiment analysis)       |  
+| **Testing**        | Jest, Supertest                      |  
+| **Docs**           | Swagger (OpenAPI 3.0)                |  
+
+---
+
+## **⚙ Setup & Installation**  
+
+### **Prerequisites**  
+- Node.js ≥18.x  
+- PostgreSQL ≥14  
+- Redis (optional, for caching)  
+- Git  
+
+### **Steps**  
+1. **Clone the repo**  
+   ```bash
+   git clone https://github.com/didasmbalanya/journal-backend.git
+   cd journal-backend
+   ```
+
+2. **Install dependencies**  
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**  
+   Create a `.env` file (see .env.sample).  
+
+4. **Database setup**  
+   Create both a test and dev db. pass both values to the respective env files
+
+5. **RunServer**  
+   ```bash
+   npm run start:dev  # Development (hot-reload)
+   ```
+
+---
+
+## **🔑 Environment Variables**  
+Add these to `.env`:  
+```ini
+# Server
+PORT=3000
+NODE_ENV=development
+
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=your_user
+DB_PASSWORD=your_password
+DB_NAME=journal_app
+
+# Auth
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=7d
+
 ```
 
-## Compile and run the project
+---
 
+## **📚 API Documentation**  
+Interactive docs via Swagger:  
+- After running the server, visit `http://localhost:3000/api-docs`.  
+
+**Key Endpoints**:  
+| **Endpoint**              | **Method** | **Description**                |  
+|---------------------------|------------|--------------------------------|  
+| `/auth/signup`            | POST       | Register a new user.           |  
+| `/auth/login`             | POST       | Log in and get JWT.            |  
+| `/journals`               | GET        | List all journal journals.     |  
+| `/journals`               | POST       | Create a new entry.            |  
+| `/journals:id`            | GET        | Get a single jpurnal.          |  
+| `/journals:id`            | DELETE     | Delete a single journal entry. |  
+
+**Example Request (Create Entry)**:  
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+curl -X POST 'http://localhost:3000/journals' \
+  -H 'Authorization: Bearer YOUR_JWT' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "title": "My Day",
+    "content": "Today I built a journal app with sentiment analysis...",
+    "categories": "personal"
+  }'
 ```
 
-## Run tests
+---
 
+## **🧪 Testing**  
+**Run tests**:  
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run test:e2e      # integration tests
+npm run test:cov  # Test coverage
 ```
 
-## Deployment
+**Test Structure**:  
+- `tests/`: API endpoint intergration tests (Supertest).  
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+**Key Decisions**:  
+1. **JWT over Sessions**: Stateless scalability.  
+2. **Redis Caching**: Reduces database load for summaries.  
+3. **AI Offloading**: Sentiment analysis runs async to avoid blocking CRUD ops.  
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+---
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## **📜 License**  
+MIT © [Didas Mbalanya](https://github.com/didasmbalanya).  
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+**🔗 Links**:  
+- [API Docs (Swagger)](http://localhost:3000/api)  
+- [System Design Doc (SDD.md)](./SDD.md)  
+- [Frontend Repo](https://github.com/didasmbalanya/journal-frontend)  
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+**Need Help?**  
+Open an issue or contact [@didasmbalanya](https://github.com/didasmbalanya).
