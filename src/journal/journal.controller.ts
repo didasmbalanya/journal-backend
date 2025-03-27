@@ -8,6 +8,8 @@ import {
   Patch,
   UseGuards,
   Req,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { JournalService } from './journal.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -22,6 +24,7 @@ export class JournalController {
   constructor(private readonly journalService: JournalService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe())
   create(
     @Req() req: AuthenticatedRequest,
     @Body() createDto: CreateJournalDto,
@@ -40,6 +43,7 @@ export class JournalController {
   }
 
   @Patch(':id')
+  @UsePipes(new ValidationPipe())
   update(
     @Req() req: AuthenticatedRequest,
     @Param('id') id: string,
