@@ -1,5 +1,5 @@
-import { User } from '../user/user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class JournalEntry {
@@ -11,6 +11,12 @@ export class JournalEntry {
 
   @Column('text')
   content: string;
+
+  @Column({ default: 'personal' })
+  category: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 
   @ManyToOne(() => User, (user) => user.journals)
   user: User;
