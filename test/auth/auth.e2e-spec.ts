@@ -1,4 +1,3 @@
-// test/auth.e2e-spec.ts
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { DataSource } from 'typeorm';
@@ -49,7 +48,7 @@ describe('Auth Flow (e2e)', () => {
       return request(app.getHttpServer())
         .post('/auth/register')
         .send({
-          email: TEST_EMAIL, // Same email as above
+          email: TEST_EMAIL,
           password: TEST_PASSWORD,
         })
         .expect(409);
@@ -61,7 +60,6 @@ describe('Auth Flow (e2e)', () => {
     const TEST_PASSWORD = 'SecurePass123!';
 
     beforeAll(async () => {
-      // Ensure test user exists
       await request(app.getHttpServer()).post('/auth/register').send({
         email: TEST_EMAIL,
         password: TEST_PASSWORD,
@@ -92,7 +90,6 @@ describe('Auth Flow (e2e)', () => {
     });
   });
 
-  // test/auth.e2e-spec.ts
   describe('Validation Tests', () => {
     it('should reject empty email (400)', () => {
       return request(app.getHttpServer())
