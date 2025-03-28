@@ -6,6 +6,10 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors({
+    origin: true,
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Journal API')
     .setDescription('API for personal journaling application')
