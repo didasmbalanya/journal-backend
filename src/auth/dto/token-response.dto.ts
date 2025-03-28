@@ -6,4 +6,10 @@ export class TokenResponseDto {
     description: 'JWT access token',
   })
   access_token: string;
+
+  @ApiProperty({
+    example: 'user',
+    description: 'User role (e.g., user, admin)',
+  })
+  role: string;
 }
