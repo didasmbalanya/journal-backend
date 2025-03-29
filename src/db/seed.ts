@@ -25,11 +25,16 @@ const seedDatabase = async () => {
 
   // Ensure at least one user exists
 
-  const user = userRepository.create({
-    email: 'seed@seed.com',
-    password: 'Password@123', // Ensure you hash this if needed
-    role: 'user',
-  });
+  let user = await userRepository.findOneBy({ email: 'seed@seed.com' });
+
+  if (!user) {
+    user = userRepository.create({
+      email: 'seed@seed.com',
+      password: 'Password@123', // Ensure you hash this if needed
+      role: 'user',
+    });
+    await userRepository.save(user);
+  }
   await userRepository.save(user);
 
   // Create 20 sample journals
