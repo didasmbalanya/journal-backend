@@ -6,7 +6,6 @@ import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { JournalModule } from './journal/journal.module';
-import { SummaryService } from './summary/summary.service';
 import { SummaryModule } from './summary/summary.module';
 
 // Load environment file based on NODE_ENV
@@ -31,6 +30,5 @@ dotenv.config({ path: resolve(__dirname, `../${envFile}`) });
     JournalModule,
     SummaryModule,
   ],
-  providers: [SummaryService],
 })
 export class AppModule {}
