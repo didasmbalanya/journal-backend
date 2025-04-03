@@ -12,6 +12,9 @@ export class JournalEntry {
   @Column('text')
   content: string;
 
+  @Column({ default: 0 })
+  wordCount: number;
+
   @Column({ default: 'personal' })
   category: string;
 
