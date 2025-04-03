@@ -36,6 +36,16 @@ describe('Journal Endpoints (e2e)', () => {
   beforeEach(async () => {
     // Clear journals before each test
     await dataSource.createQueryBuilder().delete().from(JournalEntry).execute();
+    // Create test user and get token
+    await request(app.getHttpServer())
+      .post('/auth/register')
+      .send({ email: 'test@journal2.com', password: 'TestPass123!' });
+
+    const loginRes = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send({ email: 'test@journal2.com', password: 'TestPass123!' });
+
+    authToken = loginRes.body.access_token;
   });
 
   afterAll(async () => {
@@ -43,7 +53,7 @@ describe('Journal Endpoints (e2e)', () => {
     await app.close();
   });
 
-  describe.skip('Journal CRUD Operations', () => {
+  describe('Journal CRUD Operations', () => {
     it('should create a journal entry (POST /journals)', async () => {
       const res = await request(app.getHttpServer())
         .post('/journals')
@@ -141,7 +151,7 @@ describe('Journal Endpoints (e2e)', () => {
     });
   });
 
-  describe.skip('Journal Security', () => {
+  describe('Journal Security', () => {
     let otherUserToken: string;
 
     beforeAll(async () => {
@@ -179,14 +189,14 @@ describe('Journal Endpoints (e2e)', () => {
     });
   });
 
-  describe.skip('Journal Validation', () => {
+  describe('Journal Validation', () => {
     it('should reject empty titles', async () => {
       await request(app.getHttpServer())
         .post('/journals')
         .set('Authorization', `Bearer ${authToken}`)
         .send({
           title: '',
-          content: 'Valid content',
+          content: 'Valid content123123',
         })
         .expect(400);
     });
