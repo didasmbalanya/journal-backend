@@ -40,20 +40,20 @@ describe('Summary (e2e)', () => {
     // Create test journal entries
     const entries = [
       {
-        title: 'My First Entry',
-        content: 'First test entry',
+        title: 'My First summary Entry',
+        content: 'First test summary entry',
         category: 'Work',
         createdAt: '2025-04-13T09:00:00.000Z',
       },
       {
-        title: 'My Second Entry',
-        content: 'Second entry of the day',
+        title: 'My Second summary Entry',
+        content: 'Second summary entry of the day',
         category: 'Work',
         createdAt: '2025-04-13T14:00:00.000Z',
       },
       {
-        title: 'My Three Entry',
-        content: 'Third entry early morning',
+        title: 'My Three summary Entry',
+        content: 'Third summary entry early morning',
         category: 'Personal',
         createdAt: '2025-04-14T05:00:00.000Z',
       },

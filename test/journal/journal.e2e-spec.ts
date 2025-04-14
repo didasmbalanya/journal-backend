@@ -20,17 +20,6 @@ describe('Journal Endpoints (e2e)', () => {
     app = moduleFixture.createNestApplication();
     dataSource = moduleFixture.get<DataSource>(DataSource);
     await app.init();
-
-    // Create test user and get token
-    await request(app.getHttpServer())
-      .post('/auth/register')
-      .send({ email: 'test@journal2.com', password: 'TestPass123!' });
-
-    const loginRes = await request(app.getHttpServer())
-      .post('/auth/login')
-      .send({ email: 'test@journal2.com', password: 'TestPass123!' });
-
-    authToken = loginRes.body.access_token;
   });
 
   beforeEach(async () => {
@@ -79,7 +68,7 @@ describe('Journal Endpoints (e2e)', () => {
         .set('Authorization', `Bearer ${authToken}`)
         .send({
           title: 'Test Entry',
-          content: 'Test content',
+          content: 'Test Content for a single entry',
         });
 
       const res = await request(app.getHttpServer())
@@ -114,7 +103,7 @@ describe('Journal Endpoints (e2e)', () => {
         .set('Authorization', `Bearer ${authToken}`)
         .send({
           title: 'Original Title',
-          content: 'Original Content',
+          content: 'Original Content for update',
         });
 
       const res = await request(app.getHttpServer())
@@ -126,7 +115,7 @@ describe('Journal Endpoints (e2e)', () => {
         .expect(200);
 
       expect(res.body.title).toBe('Updated Title');
-      expect(res.body.content).toBe('Original Content');
+      expect(res.body.content).toBe('Original Content for update');
     });
 
     it('should delete a journal (DELETE /journals/:id)', async () => {
