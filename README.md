@@ -1,6 +1,8 @@
 # **JournalBackend - Personal Journaling App API**  
 **A secure, scalable backend for a journaling application with analytics and AI-powered insights.**  
 
+**Live API:** [https://journal-backend-urlv.onrender.com](https://journal-backend-urlv.onrender.com/api)
+
 ---
 
 ## **📌 Table of Contents**  
